@@ -1,0 +1,32 @@
+#A-M span,
+#N-Z span{
+    color: #000;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bolder;
+    text-transform: uppercase;
+    border: #2a9445 solid 1px;
+    display: block;
+    margin: auto;
+    padding: 5px;
+}
+
+#A-M, #N-Z{
+    display: inline-block; ;
+    border: #000 solid 1px;
+    width: max-content;
+    margin: auto;
+}
+
+#dropper{
+    display: inline-block;
+    width: 70%;
+    text-align: center;
+}
+
+.mainGameBody{
+    display: flex;
+    justify-content: space-evenly;
+    vertical-align: top;
+    width: 100%;
+    margin-right: 5%;
+}
