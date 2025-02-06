@@ -8,6 +8,16 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+document.addEventListener('mousemove', function(event) {
+    const targetDiv = document.getElementById('game');
+    if (targetDiv) {
+        const rect = targetDiv.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+        targetDiv.style.background = `radial-gradient(circle at ${x}px ${y}px, #000000 0%, #373737 250%)`;
+    }
+});
+
 document.addEventListener('keydown', function(event) {
     if (event.code === 'Enter') {
         const targetDiv = document.getElementById('input');
@@ -23,7 +33,7 @@ document.addEventListener('keydown', function(event) {
             spacebarPressTimer = setTimeout(function() {
                 const targetDiv = document.getElementById('input');
                 if (targetDiv) {
-                    targetDiv.textContent += '_ ';
+                    targetDiv.appendChild(document.createElement('div')).className='dash';
                     typed = true;
                 }
                 spacebarPressTimer = null;
@@ -40,7 +50,7 @@ document.addEventListener('keyup', function(event) {
             if (!typed) {
                 const targetDiv = document.getElementById('input');
                 if (targetDiv) {
-                    targetDiv.textContent += '. ';
+                    targetDiv.appendChild(document.createElement('div')).className='dot';
                 }
             }
             else {
