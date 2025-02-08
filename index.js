@@ -8,15 +8,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-document.addEventListener('mousemove', function(event) {
-    const targetDiv = document.getElementById('game');
-    if (targetDiv) {
-        const rect = targetDiv.getBoundingClientRect();
-        const x = event.clientX - rect.left;
-        const y = event.clientY - rect.top;
-        targetDiv.style.background = `radial-gradient(circle at ${x}px ${y}px, #000000 0%, #373737 250%)`;
-    }
-});
 
 document.addEventListener('keydown', function(event) {
     if (event.code === 'Enter') {
@@ -37,7 +28,7 @@ document.addEventListener('keydown', function(event) {
                     typed = true;
                 }
                 spacebarPressTimer = null;
-            }, 300); // Adjust the duration for long press as needed
+            }, 300);
         }
     }
 });
