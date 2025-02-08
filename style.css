@@ -1,14 +1,24 @@
 :root{
   --primary-light: #363333;
   --primary-dark: #272121;
-  --font: #E16428;
+  --select: #E16428;
   --primary-white: #F6E9E9;
 
 }
 
 
 body{
+  margin: 0;
+  padding: 0;
   background-color: var(--primary-light);
+}
+
+header h1{
+  background-color: var(--primary-light);
+  color: var(--primary-white);
+  margin: 0;
+  padding: 10px;
+  font-family: 'Helvetica', sans-serif;
 }
 
 #game {
@@ -16,7 +26,6 @@ body{
     width: 75vh;
     height: 90vh;
     text-align: center;
-    border: #ffffff 1px solid;
   }
   
 
@@ -69,14 +78,15 @@ body{
     padding: 0;
 }
 
-.dropper{
+#dropper{
+  position: relative;
+  border-bottom: var(--primary-white) 5px solid;
   height: 80%;
 
 }
 
 #input{
   height: 20%;
-  border: #FFF solid 2px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -86,4 +96,26 @@ body{
 #input div{
   display: inline-block;
   margin: 10px;
+}
+
+.letter {
+  position: absolute;
+  top: 0;
+  font-size: 2em;
+  color: var(--primary-white);
+  font-family: 'Roboto', sans-serif;
+  animation: fall linear forwards;
+}
+
+@keyframes fall {
+  from {
+      top: 0;
+  }
+  to {
+      top: 60%;
+      color: var(--select) ;
+  }
+  to {
+    top: 95%;
+  }
 }
