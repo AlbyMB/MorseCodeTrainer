@@ -79,7 +79,7 @@ document.addEventListener('mousedown', function(event) {
             typed = true;
         }
         spacebarPressTimer = null;
-    }, 300);
+    }, 200);
 });
 
 document.addEventListener('mouseup', function(event) {
