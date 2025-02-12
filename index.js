@@ -1,6 +1,9 @@
 let spacebarPressTimer;
 let typed = false;
 let spacebarPressed = false;
+let mode = 'normal';
+let score = 0;
+let letterGenerator;
 
 
 const morseDict = {
@@ -8,10 +11,8 @@ const morseDict = {
 };
 
 document.addEventListener('DOMContentLoaded', function() {
-    const targetDiv = document.getElementById('input');
-    targetDiv.textContent = '';
-    targetDiv.focus();
     startGeneratingLetters();
+    SetMode('normal');
 });
 
 function createLetter() {
@@ -26,18 +27,32 @@ function createLetter() {
     const randomX = Math.floor(Math.random() * (rect.width - 50 - 50 + 1)) + 50;
     letter.style.left = randomX + "px";
 
-    const duration = Math.floor(Math.random() * (10 + 5 + 1)) + 5;
+    const duration = Math.floor(Math.random() * (10 + 7 + 1)) + 7;
     letter.style.animationDuration = duration + "s";
 
     container.appendChild(letter);
 
     letter.addEventListener('animationend', () => {
         letter.remove();
+        const input = document.getElementById('input');
+        input.classList.add('fadeOut');
+        dropper.classList.add('fadeOut');
+        setTimeout(() => {
+            input.style.display = 'none';
+            dropper.style.display = 'none';
+            clearInterval(letterGenerator);
+            const gameOver = document.getElementById('Menu');
+            gameOver.classList.add('fadeIn');
+            gameOver.style.display = 'block';
+            const finalScore = document.getElementById('finalScore');
+            finalScore.innerHTML = score;
+        }, 500); 
+
     });
 }
 
 function startGeneratingLetters() {
-    setInterval(() => {
+    letterGenerator = setInterval(() => {
         if (Math.random() < 0.5) {
             createLetter();
         }
@@ -58,13 +73,15 @@ document.addEventListener('keydown', function(event) {
             }
         }
         targetDiv.innerHTML = '';
-        console.log(morseDict[morse]);
 
         if (morseDict[morse]) {
             const dropper = document.getElementById('dropper');
             const letters = dropper.getElementsByClassName(morseDict[morse]);
             if (letters.length > 0) {
                 letters[0].remove();
+                score++;
+                const scoreBoard = document.getElementById('Score');
+                scoreBoard.innerHTML = score;
             }
         }
     }
@@ -103,5 +120,8 @@ document.addEventListener('keyup', function(event) {
 });
 
 function SetMode(mode){
-    document.getElementById(mode).style.color = "var(--select)";    
+    document.getElementById('normal').classList.remove("select");
+    document.getElementById('number').classList.remove("select");
+    document.getElementById('expert').classList.remove("select");
+    document.getElementById(mode).classList.add("select");    
 }

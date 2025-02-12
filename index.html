@@ -12,9 +12,10 @@
 
 <body>
     <header>
-        <h1>Morse Code Trainer</h1>
         <div class="card">
-            <button class="button" id="normal" onclick="SetMode('normal')">Normal</button>
+            <h1>Morse Code Trainer</h1>
+            <button class="button" id="normal" onclick="SetMode('normal')"> 
+               Normal</button>
           
             <button class="button" id="number" onclick="SetMode('number')">Number</button>
             
@@ -38,8 +39,14 @@
             <span id="M">M <div class="dash"></div> <div class="dash"></div></span>
         </div>
         <div id="game">
-            <div id="dropper"></div>
+            <div id="dropper">
+                <div id="Score">0</div>
+            </div>
             <div id="input"></div>
+            <div id="Menu">
+                Game Over <br>
+                <div id="finalScore"></div>
+            </div>
         </div>
         <div id="N-Z">
             <span id="N">N <div class="dash"></div> <div class="dot"></div></span>
