@@ -1,6 +1,8 @@
 let spacebarPressTimer;
 let typed = false;
-let start = false;
+let spacebarPressed = false;
+
+
 const morseDict = {
     '.-': 'A', '-...': 'B', '-.-.': 'C', '-..': 'D', '.': 'E', '..-.': 'F', '--.': 'G', '....': 'H', '..': 'I', '.---': 'J', '-.-': 'K', '.-..': 'L', '--': 'M', '-.': 'N', '---': 'O', '.--.': 'P', '--.-': 'Q', '.-.': 'R', '...': 'S', '-': 'T', '..-': 'U', '...-': 'V', '.--': 'W', '-..-': 'X', '-.--': 'Y', '--..': 'Z'
 };
@@ -9,7 +11,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const targetDiv = document.getElementById('input');
     targetDiv.textContent = '';
     targetDiv.focus();
-    start = true;
     startGeneratingLetters();
 });
 
@@ -25,7 +26,7 @@ function createLetter() {
     const randomX = Math.floor(Math.random() * (rect.width - 50 - 50 + 1)) + 50;
     letter.style.left = randomX + "px";
 
-    const duration = Math.floor(Math.random() * (5 + 3 + 1)) + 3;
+    const duration = Math.floor(Math.random() * (10 + 5 + 1)) + 5;
     letter.style.animationDuration = duration + "s";
 
     container.appendChild(letter);
@@ -69,28 +70,38 @@ document.addEventListener('keydown', function(event) {
     }
 });
 
-document.addEventListener('mousedown', function(event) {
-    event.preventDefault();
-    typed = false;
-    spacebarPressTimer = setTimeout(function() {
-        const targetDiv = document.getElementById('input');
-        if (targetDiv) {
-            targetDiv.appendChild(document.createElement('div')).className = 'dash';
-            typed = true;
-        }
-        spacebarPressTimer = null;
-    }, 200);
-});
-
-document.addEventListener('mouseup', function(event) {
-    if (spacebarPressTimer) {
-        clearTimeout(spacebarPressTimer);
-        spacebarPressTimer = null;
-        if (!typed) {
+document.addEventListener('keydown', function(event) {
+    if (event.code === 'Space' && !spacebarPressed) {
+        event.preventDefault();
+        spacebarPressed = true; 
+        typed = false;
+        spacebarPressTimer = setTimeout(function() {
             const targetDiv = document.getElementById('input');
             if (targetDiv) {
-                targetDiv.appendChild(document.createElement('div')).className = 'dot';
+                targetDiv.appendChild(document.createElement('div')).className = 'dash';
+                typed = true;
+            }
+            spacebarPressTimer = null;
+        }, 200);
+    }
+});
+
+document.addEventListener('keyup', function(event) {
+    if (event.code === 'Space') {
+        spacebarPressed = false; 
+        if (spacebarPressTimer) {
+            clearTimeout(spacebarPressTimer);
+            spacebarPressTimer = null;
+            if (!typed) {
+                const targetDiv = document.getElementById('input');
+                if (targetDiv) {
+                    targetDiv.appendChild(document.createElement('div')).className = 'dot';
+                }
             }
         }
     }
 });
+
+function SetMode(mode){
+    document.getElementById(mode).style.color = "var(--select)";    
+}
